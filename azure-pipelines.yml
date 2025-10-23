@@ -1,0 +1,59 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - README.md
+      - docs/*
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  - group: PlaywrightSecrets
+  - name: nodeVersion
+    value: "18.x"
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "18.x"
+    displayName: "Install Node.js"
+
+  - script: |
+      set -e
+      npm install
+    displayName: "Install dependencies"
+
+  - script: |
+      npx playwright install --with-deps
+    displayName: "Install Playwright Browsers"
+    env:
+      API_URL: "$(API_URL)"
+      EMAIL: "$(EMAIL)"
+      SENHA: "$(SENHA)"
+      URL: "$(URL)"
+
+  - script: |
+      echo "🧪 Iniciando execução dos testes com Playwright (exibindo progresso)..."
+      CI=true npx playwright test --workers=2 --reporter=list,html
+    env:
+      API_URL: "$(API_URL)"
+      EMAIL: "$(EMAIL)"
+      SENHA: "$(SENHA)"
+      URL: "$(URL)"
+    displayName: "Run Playwright Tests"
+
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: "playwright-report"
+      artifact: "playwright-report"
+      publishLocation: "pipeline"
+    displayName: "Publicar relatório do Playwright"
+    condition: always()

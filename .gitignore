@@ -1,0 +1,18 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Environment files
+.env.*
+!.env.example
+!.env.dev
+!.env.prod
+!.env.qa
+
+# Authentication User file
+userSession.json
