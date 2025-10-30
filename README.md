@@ -1,6 +1,53 @@
-## Documentação (pt-BR)
+## Playwright POM Template (pt-BR)
 
-Consulte os guias abaixo na pasta `docs-pt/`:
+Template opinativo para testes de UI e API com Playwright, seguindo Page Object Model, fixtures reutilizáveis, tipagem com TypeScript, lint/format automatizados e CI.
+
+## Requisitos
+
+- Node.js 18+
+- npm 9+ (ou pnpm/yarn, se preferir adaptar)
+
+## Instalação e uso rápido
+
+1. Instale as dependências e binários do Playwright:
+```
+npm install
+npx playwright install
+```
+2. Configure variáveis de ambiente:
+   - Copie `.env.example` para `.env` e preencha conforme sua aplicação.
+3. Ajuste autenticação no setup de testes:
+   - Edite `tests/auth.setup.ts` de acordo com seu fluxo (login, tokens, cookies).
+4. Rode os testes:
+```
+npm test
+```
+
+## Estrutura do projeto (resumo)
+
+- `pages/`: Page Objects e componentes reutilizáveis.
+- `fixtures/`: Fixtures de API, POM e opções de teste.
+- `tests/`: Especificações de UI e API, e setup de autenticação.
+- `docs-pt/`: Guias passo a passo de configuração e uso.
+- `playwright.config.ts`: Configuração do Playwright.
+
+## Configuração essencial
+
+- Playwright: veja `playwright.config.ts` para baseURL, retries, reporter, etc.
+- Autenticação: edite `tests/auth.setup.ts` e reutilize contexto em specs.
+- Variáveis de ambiente: defina chaves de URL, credenciais e tokens no `.env`.
+
+## Lint, format e pre-commit
+
+- Configure ESLint, Prettier e Husky seguindo o guia: [10 - Implementar ESLint e Husky](docs-pt/10_implementar_eslint_husky.md)
+
+## Integração Contínua (CI)
+
+- Exemplo de pipeline: `azure-pipelines.yml`.
+- Guia de GitHub Actions: [09 - Implementar GitHub Actions](docs-pt/09_implementar_github_actions.md)
+
+
+## Documentação detalhada para criar um NOVO repositório (docs-pt)
 
 - [01 - Setup inicial](docs-pt/01_setup_inicial.md)
 - [02 - Criar snippets](docs-pt/02_criar_snippets.md)
@@ -12,5 +59,3 @@ Consulte os guias abaixo na pasta `docs-pt/`:
 - [08 - Implementar API Tests](docs-pt/08_implementar_api_tests.md)
 - [09 - Implementar GitHub Actions](docs-pt/09_implementar_github_actions.md)
 - [10 - Implementar ESLint e Husky](docs-pt/10_implementar_eslint_husky.md)
-
-
